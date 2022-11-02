@@ -77,7 +77,28 @@ describe('Helpers', () => {
         })
     });
 
-    it('Aula 29 - Combos', () => {
+    it.only('Aula 29 - Combos', () => {
+        cy.visit('https://www.wcaquino.me/cypress/componentes.html')
+        
+        cy.get('[data-test="dataEscolaridade"]')
+            .select('2o grau completo')
+            .should('have.value', '2graucomp')
+        
+        cy.get('[data-test="dataEscolaridade"]')
+            .select('2o grau incompleto')
+            .should('have.value', '2grauincomp')
+
+        cy.get('[data-test="dataEscolaridade"] option')
+            .should('have.length', 8)
+        
+        
+
+
+
+
+        /*
+        cy.get('[data-testid="dataEsportes"]')
+          .select(['Natacao','Corrida','nada'])*/
         
     });
 });
