@@ -14,7 +14,7 @@ describe('Helpers', () => {
 
         /*const promise = new Promise((resolve, reject) => {
             setTimeout(() => {
-                resolve(10)
+                resolve(10)a
             }, 500) a
         })
 
