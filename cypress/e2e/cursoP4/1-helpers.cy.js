@@ -15,7 +15,7 @@ describe('Helpers', () => {
         /*const promise = new Promise((resolve, reject) => {
             setTimeout(() => {
                 resolve(10)
-            }, 500)
+            }, 500) a
         })
 
         cy.get('#buttonSimple').then(() => console.log('Encontrei o primeiro botão'))
