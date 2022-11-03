@@ -45,19 +45,67 @@ describe('Helpers', () => {
         
     });
 
-    it.only('Aula 33 - Alerts - CONFIRM', () => {
+    it('Aula 33A - Alerts - CONFIRM - CONFIRMAR', () => {
         // Aqui apresenta como conseguir captar alerts.
         /*Interessante isso daqui, eim?
         Aqui tenho sub*/
         
         //const stub = cy.stub()
-        const stub = cy.stub().as('alerta')
-        cy.on('window:alert', stub)
-        cy.get('#alert').click().then(() =>{
-            expect(stub.getCall(0)).to.be.calledWith('Alert Simples')
+        cy.get('#confirm').click()
+        cy.on('window:confirm', msg => {
+            console.log(msg)
+            expect(msg).to.be.equal('Confirm Simples')
+        })
+        cy.on('window:alert', msg => {
+            console.log(msg)
+            expect(msg).to.be.equal('Confirmado')
         })
 
+    });
+
+    it('Aula 33B - Alerts - CONFIRM - NEGAR', () => {
+        // Aqui apresenta como conseguir captar alerts.
+        /*Interessante isso daqui, eim?
+        Aqui tenho sub*/
         
+        cy.get('#confirm').click()
+        cy.on('window:confirm', msg => {
+            console.log(msg)
+            expect(msg).to.be.equal('Confirm Simples')
+            return false
+        })
+        cy.on('window:alert', msg => {
+            console.log(msg)
+            expect(msg).to.be.equal('Negado')
+        })
+
+    });
+
+    it.only('Aula 34 - Prompt', () => {
+        // Aqui apresenta como conseguir captar alerts.
+        /*Interessante isso daqui, eim?
+        Aqui tenho sub
+        Aqui tem mocks*/
+        
+
+        cy.window().then(win => {
+            cy.stub(win, 'prompt').returns('42')
+            //Isso é um mock
+        })
+
+        cy.on('window:confirm', msg => {
+            console.log(msg)
+            expect(msg).to.be.equal('Era 42?')
+        })
+
+        cy.on('window:alert', msg => {
+            console.log(msg)
+            expect(msg).to.be.equal(':D')
+        })
+
+        cy.get('#prompt').click()
+
+
     });
 
 });
