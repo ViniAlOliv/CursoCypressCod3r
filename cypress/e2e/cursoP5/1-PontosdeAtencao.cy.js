@@ -81,7 +81,7 @@ describe('Helpers', () => {
 
     });
 
-    it.only('Aula 34 - Prompt', () => {
+    it('Aula 34 - Prompt', () => {
         // Aqui apresenta como conseguir captar alerts.
         /*Interessante isso daqui, eim?
         Aqui tenho sub
@@ -105,6 +105,37 @@ describe('Helpers', () => {
 
         cy.get('#prompt').click()
 
+
+    });
+
+    it.only('Aula 35 - Desafio de mensagem - Nome', () => {
+        // Aqui apresenta como conseguir captar alerts.
+        /*Interessante isso daqui, eim?
+        Aqui tenho sub
+        Aqui tem mocks*/
+        const stub = cy.stub().as('alerta')
+        cy.on('window:alert', stub)
+        cy.get('#formCadastrar').click()
+            .then(() => expect(stub.getCall(0)).to.be.calledWith('Nome eh obrigatorio'))
+
+        cy.get('#formNome').type('Vini')
+        cy.get('#formCadastrar').click()
+            .then(() => expect(stub.getCall(1)).to.be.calledWith('Sobrenome eh obrigatorio'))
+
+        cy.get('[data-cy="dataSobrenome"]').type('Oliv')
+        cy.get('#formCadastrar').click()
+            .then(() => expect(stub.getCall(2)).to.be.calledWith('Sexo eh obrigatorio'))
+
+        cy.get('#formSexo > tbody > tr > :nth-child(1)').click()
+        cy.get('#formCadastrar').click()
+        cy.get('#resultado > :nth-child(1)').should('have.text','Cadastrado!')
+
+        
+        /* Tentei começar como fiz abaixo, e não funcionou
+        cy.on('window:alert', msg => {
+            console.log(msg)
+            expect(msg).to.be.equal('Nome eh obrigatorio')
+        })*/
 
     });
 
